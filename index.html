@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Thắp một nén hương tưởng nhớ, dâng lên bàn thờ với lòng thành kính." />
+  <title>Thắp Hương – Một Lòng Thành Kính</title>
+
+  <!-- Preload assets quan trọng -->
+  <link rel="preload" href="assets/Logoulis-transparent.png" as="image" />
+  <link rel="preload" href="assets/banthovectordong.svg" as="image" />
+  <link rel="preload" href="assets/banthovectormo.svg" as="image" />
+  <link rel="preload" href="assets/bohuongvector.svg" as="image" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Vercel Analytics (tự động hoạt động khi deploy lên Vercel) -->
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+
+  <!-- =====================================================
+       WRAPPER TỔNG THỂ
+  ====================================================== -->
+  <div class="page-wrapper">
+
+    <main class="ceremony-shell">
+    <!-- Logo ULIS -->
+    <div class="logo-wrap no-select">
+      <img src="assets/Logoulis-transparent.png" alt="Logo ULIS" class="logo-img" draggable="false" />
+    </div>
+    <header class="ceremony-heading">
+      <p class="ceremony-eyebrow">Kh&ocirc;ng gian d&acirc;ng h&#432;&#417;ng</p>
+      <p class="ceremony-subtitle">Th&agrave;nh k&iacute;nh t&#432;&#7903;ng nh&#7899; v&agrave; tri &acirc;n</p>
+      <span class="ceremony-divider" aria-hidden="true"></span>
+    </header>
+    <!-- =====================================================
+         KHUNG BÀN THỜ
+    ====================================================== -->
+    <div class="altar-container" id="altar-container">
+
+      <!-- Ánh sáng nến -->
+      <div class="candle-glow" aria-hidden="true"></div>
+
+      <!-- Ảnh bàn thờ MỞ (nằm dưới cùng, luôn hiển thị) -->
+      <img src="assets/banthovectormo.svg" alt="Bàn thờ tổ tiên" class="altar-img" id="altar-img" draggable="false" />
+
+      <!-- Ảnh bàn thờ ĐÓNG (chia 2 cánh để mở ra) -->
+      <div class="altar-doors" id="altar-doors">
+        <img src="assets/banthovectordong.svg" class="altar-door altar-door-left" draggable="false" alt="" />
+        <img src="assets/banthovectordong.svg" class="altar-door altar-door-right" draggable="false" alt="" />
+      </div>
+
+      <!-- BÓ HƯƠNG (ẩn ban đầu, JS sẽ điều khiển) -->
+      <div id="incense" aria-hidden="true">
+        <img src="assets/bohuongvector.svg" alt="Bó hương" draggable="false" />
+      </div>
+
+    </div><!-- /.altar-container -->
+
+    <!-- =====================================================
+         NHẬP TÊN & NÚT THắP HƯƠNG
+    ====================================================== -->
+    <div class="btn-wrapper">
+
+      <!-- Ô nhập tên -->
+      <div class="name-input-group">
+        <label for="user-name" class="name-label">Tên của bạn</label>
+        <div class="name-input-wrap">
+          <input type="text" id="user-name" class="name-input" placeholder="Nhập tên để thắp hương..." maxlength="60"
+            autocomplete="off" spellcheck="false" />
+        </div>
+      </div>
+
+      <button id="btn-incense" class="btn-incense no-select" type="button" aria-label="Thắp hương lên bàn thờ" disabled>
+        Thắp Hương
+      </button>
+      <!-- <span class="btn-note" id="btn-note">Nhập tên để dâng hương</span> -->
+    </div>
+
+    </main>
+
+    <!-- Footer -->
+    <!-- <footer class="page-footer" aria-label="Thông tin trang">
+      Kính dâng lên chư vị tổ tiên
+    </footer> -->
+
+    <!-- =====================================================
+         BẢNG XẼP HẠNG CÔNG ĐỨC
+    ====================================================== -->
+    <section class="merit-section" id="merit-section" aria-label="Bảng xếp hạng công đức">
+      <div class="merit-header">
+        <h2 class="merit-title"> Bảng Xếp Hạng Công Đức</h2>
+      </div>
+
+      <!-- Trạng thái loading -->
+      <div class="merit-loading" id="merit-loading">
+        <span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>
+      </div>
+
+      <!-- Bảng xếp hạng -->
+      <div class="merit-table-wrap" id="merit-table-wrap" hidden>
+        <table class="merit-table" id="merit-table">
+          <thead>
+            <tr>
+              <th class="col-rank">#</th>
+              <th class="col-name">Họ tên</th>
+              <th class="col-merit">Công đức</th>
+              <th class="col-time">Lần cuối</th>
+            </tr>
+          </thead>
+          <tbody id="merit-tbody"></tbody>
+        </table>
+      </div>
+
+      <p class="merit-empty" id="merit-empty" hidden>Chưa có ai dâng hương. Hãy là người đầu tiên! 🙏</p>
+    </section>
+
+  </div><!-- /.page-wrapper -->
+
+  <!-- =====================================================
+       AUDIO NỀN (loop)
+  ====================================================== -->
+  <audio id="bg-audio" src="assets/audio.mp3" loop preload="none" aria-hidden="true"></audio>
+
+  <!-- Script chính -->
+  <script src="script.js"></script>
+
+</body>
+
+</html>

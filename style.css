@@ -1,0 +1,1038 @@
+/* ============================================================
+   THẮP HƯƠNG - STYLE.CSS
+   Chỉnh sửa các biến CSS bên dưới để thay đổi giao diện
+   ============================================================ */
+
+/* ---------- Google Fonts ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ---------- CSS Custom Properties (Dễ chỉnh sửa) ---------- */
+:root {
+  /* Màu sắc – Light theme (kem ấm) */
+  --color-bg-main: #ffffff;
+  /* Nền chính – trắng */
+  --color-bg-card: #fdfaf4;
+  /* Nền card/section – trắng kem */
+  --color-bg-deep: #f5f0e8;
+  /* giữ tương thích */
+  --color-gold-bright: #b8860b;
+  /* Vàng sẫn – nổi trên nền sáng */
+  --color-gold-mid: #9a7009;
+  /* Vàng đậm */
+  --color-gold-dim: #c8a040;
+  /* Vàng nhạt / accent */
+  --color-red-accent: #8b1a1a;
+  /* Đỏ truyền thống */
+  --color-cream: #3d2b0f;
+  /* Màu chữ chính trên nền sáng */
+  --color-text-sub: #6b4c1e;
+  /* Chữ phụ */
+  --color-text-dim: #a08050;
+  /* Chữ mờ */
+  --color-border: rgba(139, 100, 20, 0.2);
+
+  /* Kích thước bàn thờ */
+  --altar-max-width: 560px;
+  --altar-aspect-ratio: 3 / 4;
+
+  /* Vị trí bát hương */
+  --incense-bowl-x: 50%;
+  --incense-bowl-y: 62%;
+
+  /* Kích thước bó hương */
+  --incense-width: 70px;
+  --incense-width-mobile: 50px;
+
+  /* Kích thước ảnh khói */
+  --smoke-width: 80px;
+  --smoke-width-mobile: 55px;
+
+  /* Tốc độ animation */
+  --anim-rise-duration: 1.4s;
+  --anim-insert-duration: 0.8s;
+  --anim-smoke-fade-in: 1.2s;
+  --incense-start-y: 40vh;
+
+  /* Hiệu ứng ánh sáng nến */
+  --candle-glow-size: 300px;
+  --candle-glow-color: rgba(180, 100, 10, 0.08);
+}
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #f8f1e4;
+  background-image:
+    radial-gradient(ellipse 65% 38% at 50% 12%, rgba(202, 155, 66, 0.16) 0%, transparent 68%),
+    linear-gradient(180deg, #fcf9f1 0%, #f3e7d3 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'Noto Serif', 'Times New Roman', serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- Hoa văn nền nhẹ ---------- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 15% 25%, rgba(180, 130, 20, 0.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 15%, rgba(180, 130, 20, 0.09) 0%, transparent 100%),
+    radial-gradient(2px 2px at 50% 65%, rgba(180, 130, 20, 0.1) 0%, transparent 100%),
+    radial-gradient(1px 1px at 10% 80%, rgba(180, 130, 20, 0.07) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 88% 55%, rgba(180, 130, 20, 0.09) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: dustFloat 10s ease-in-out infinite alternate;
+}
+
+@keyframes dustFloat {
+  0% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-6px);
+  }
+}
+
+/* ---------- Wrapper tổng thể ---------- */
+.page-wrapper {
+  width: 100%;
+  max-width: 700px;
+  padding: 14px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  animation: pageAppear 1.4s ease-out both;
+}
+
+.ceremony-shell {
+  width: 100%;
+  padding: 4px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@keyframes pageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Logo ULIS ---------- */
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+  /* Cách bàn thờ khoảng 1 dòng */
+  animation: logoAppear 1.2s ease-out both;
+}
+
+@keyframes logoAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.logo-img {
+  height: 112px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(28, 55, 111, 0.14));
+}
+
+.ceremony-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.ceremony-eyebrow {
+  color: var(--color-red-accent);
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ceremony-subtitle {
+  margin-top: 5px;
+  color: var(--color-text-sub);
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.035em;
+}
+
+.ceremony-divider {
+  width: 150px;
+  height: 1px;
+  margin-top: 8px;
+  background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.65), transparent);
+}
+
+/* ---------- Tiêu đề trang ---------- */
+.page-title {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  color: var(--color-red-accent);
+  font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center;
+  margin-bottom: 4px;
+  text-shadow: 0 1px 3px rgba(139, 26, 26, 0.15);
+}
+
+.page-subtitle {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  color: var(--color-text-sub);
+  font-size: clamp(0.78rem, 2.2vw, 0.92rem);
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+/* ---------- Đường trang trí ---------- */
+.divider {
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-dim), transparent);
+  margin: 0 auto 24px;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '❖';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gold-dim);
+  font-size: 0.6rem;
+}
+
+.divider::before {
+  left: -14px;
+}
+
+.divider::after {
+  right: -14px;
+}
+
+/* ---------- Khung chứa bàn thờ ---------- */
+.altar-container {
+  position: relative;
+  width: 100%;
+  max-width: var(--altar-max-width);
+  aspect-ratio: var(--altar-aspect-ratio);
+  margin: -52px auto -8px;
+  overflow: visible;
+  /* Cho phép hương vươn ra ngoài khung khi di chuyển */
+}
+
+/* Tự động thu nhỏ bàn thờ để vừa 1 màn hình nếu màn hình đủ cao, 
+   nếu zoom quá to (màn hình thấp) thì sẽ trở về cuộn bình thường để không bị vỡ layout */
+@media (min-height: 650px) {
+  .altar-container {
+    /* Chừa chỗ cho logo, tiêu đề, ô nhập và nút trong cùng viewport. */
+    max-width: min(var(--altar-max-width), calc((100svh - 430px) * 0.75));
+  }
+}
+
+/* ---------- Ảnh bàn thờ ---------- */
+.altar-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  border-radius: 4px;
+}
+
+/* ---------- Hiệu ứng 2 cánh cửa mở (ĐÓNG -> MỞ) ---------- */
+.altar-doors {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  perspective: 1200px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.altar-door {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  backface-visibility: hidden;
+  transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.altar-door-left {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  transform-origin: left center;
+}
+
+.altar-door-right {
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+  transform-origin: right center;
+}
+
+/* Khi mở, cánh xoay ra và mờ dần (để thật hơn vì ảnh 2D không có độ dày) */
+.altar-doors.open .altar-door-left {
+  transform: rotateY(-105deg);
+  opacity: 0.1;
+}
+
+.altar-doors.open .altar-door-right {
+  transform: rotateY(105deg);
+  opacity: 0.1;
+}
+
+/* ---------- Ánh sáng nến lung linh ---------- */
+.candle-glow {
+  position: absolute;
+  width: var(--candle-glow-size);
+  height: var(--candle-glow-size);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--candle-glow-color) 0%, transparent 70%);
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: candleFlicker 3s ease-in-out infinite;
+}
+
+@keyframes candleFlicker {
+
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+
+  25% {
+    opacity: 1;
+    transform: translateX(-48%) scale(1.05);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateX(-52%) scale(0.95);
+  }
+
+  75% {
+    opacity: 0.9;
+    transform: translateX(-50%) scale(1.02);
+  }
+}
+
+/* ---------- BÓ HƯƠNG ---------- */
+#incense {
+  position: absolute;
+
+  /* Width được set bởi JS, height tự scale theo tỉ lệ ảnh */
+  width: auto;
+
+  /* JS dùng top + left để định vị */
+  top: 0;
+  left: 0;
+
+  /* Ẩn ban đầu */
+  display: none;
+  opacity: 0;
+
+  /* Transition do JS set inline — để tránh xung đột */
+  z-index: 10;
+  pointer-events: none;
+
+  /* Bóng nhẹ — tương thích với nền đã xóa */
+  /* filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35)); Bỏ theo yêu cầu */
+}
+
+#incense img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- NÚT THẮP HƯƠNG ---------- */
+.btn-wrapper {
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Màn hình thấp hoặc trình duyệt đang zoom lớn: nén phần trang trí,
+   vẫn giữ đủ logo, bàn thờ và thao tác chính trong màn hình đầu tiên. */
+@media (max-height: 760px) and (min-width: 601px) {
+  .page-wrapper {
+    padding-top: 8px;
+  }
+
+  .logo-img {
+    height: 92px;
+  }
+
+  .ceremony-subtitle {
+    margin-top: 2px;
+  }
+
+  .ceremony-divider {
+    margin-top: 5px;
+  }
+
+  .altar-container {
+    max-width: min(var(--altar-max-width), calc((100svh - 380px) * 0.75));
+    margin-top: -42px;
+    margin-bottom: -10px;
+  }
+
+  .btn-wrapper {
+    margin-top: 4px;
+    gap: 8px;
+  }
+}
+
+.btn-incense {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  min-height: 54px;
+  padding: 14px 32px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: linear-gradient(135deg, #8b1a1a 0%, #a02020 50%, #8b1a1a 100%);
+  background-size: 200% 200%;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(139, 26, 26, 0.3),
+    0 4px 20px rgba(139, 26, 26, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.15s ease,
+    background-position 0.4s ease,
+    opacity 0.3s ease;
+  animation: btnShimmer 3s ease-in-out infinite;
+}
+
+@keyframes btnShimmer {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Hiệu ứng sóng khi click */
+.btn-incense::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.btn-incense:active::after {
+  transform: scale(2);
+  opacity: 0;
+  transition: 0s;
+}
+
+.btn-incense:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(139, 26, 26, 0.5),
+    0 8px 28px rgba(139, 26, 26, 0.3),
+    0 4px 10px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-incense:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97);
+  box-shadow:
+    0 0 0 1px rgba(139, 26, 26, 0.3),
+    0 2px 10px rgba(139, 26, 26, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Trạng thái disabled (chưa nhập tên hoặc đã thắp) */
+.btn-incense:disabled {
+  cursor: default;
+  opacity: 0.45;
+  background: linear-gradient(135deg, #c0a060 0%, #a08040 50%, #c0a060 100%);
+  box-shadow:
+    0 0 0 1px rgba(160, 128, 64, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: none;
+  color: #fff;
+  transform: none;
+}
+
+/* Dòng chú thích nhỏ dưới nút */
+.btn-note {
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.04em;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ---------- Footer ---------- */
+.page-footer {
+  margin-top: 40px;
+  font-size: 0.68rem;
+  color: rgba(100, 70, 30, 0.55);
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .page-wrapper {
+    padding: 14px 10px 30px;
+  }
+
+  .ceremony-shell {
+    padding: 2px 12px 22px;
+  }
+
+  .logo-img {
+    height: 92px;
+  }
+
+  .altar-container {
+    margin-top: -38px;
+    margin-bottom: 2px;
+  }
+
+  .altar-container {
+    border-radius: 3px;
+  }
+
+  #incense {
+    width: var(--incense-width-mobile);
+  }
+
+  .smoke-layer {
+    width: var(--smoke-width-mobile);
+  }
+
+  .btn-incense {
+    padding: 12px 32px;
+  }
+}
+
+@media (max-width: 380px) {
+  .page-title {
+    font-size: 1.1rem;
+  }
+
+  .btn-incense {
+    padding: 11px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ---------- Utility: no-select ---------- */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ============================================================
+   NHẬP TÊN
+   ============================================================ */
+.name-input-group {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name-label {
+  font-family: 'Noto Serif', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-sub);
+  text-transform: uppercase;
+  padding-left: 2px;
+}
+
+.name-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.name-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 1rem;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.name-input {
+  width: 100%;
+  min-height: 54px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(139, 100, 20, 0.35);
+  border-radius: 7px;
+  color: var(--color-cream);
+  font-family: 'Noto Serif', serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.name-input::placeholder {
+  color: var(--color-text-dim);
+  font-style: italic;
+}
+
+.name-input:focus {
+  border-color: rgba(139, 26, 26, 0.6);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 0 0 3px rgba(139, 26, 26, 0.08),
+    0 2px 12px rgba(139, 26, 26, 0.06);
+}
+
+.name-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   ANIMATION +1 CÔNG ĐỨC
+   ============================================================ */
+.merit-float {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #8b1a1a;
+  text-shadow:
+    0 1px 6px rgba(139, 26, 26, 0.3),
+    0 0 20px rgba(139, 26, 26, 0.15);
+  pointer-events: none;
+  z-index: 9999;
+  animation: meritFloat 2.2s ease-out forwards;
+  white-space: nowrap;
+}
+
+@keyframes meritFloat {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0px) scale(0.7);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px) scale(1.15);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-55px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100px) scale(0.9);
+  }
+}
+
+/* ============================================================
+   BẢNG XẾP HẠNG CÔNG ĐỨC
+   ============================================================ */
+.merit-section {
+  width: 100%;
+  max-width: 640px;
+  margin-top: 48px;
+  padding: 24px 20px 30px;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(139, 100, 20, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+}
+
+.merit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(139, 100, 20, 0.15);
+}
+
+.merit-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 700;
+  color: var(--color-red-accent);
+  letter-spacing: 0.08em;
+}
+
+/* Nút xuất txt */
+.btn-export {
+  padding: 7px 16px;
+  background: rgba(139, 100, 20, 0.08);
+  border: 1px solid rgba(139, 100, 20, 0.3);
+  border-radius: 4px;
+  color: var(--color-gold-mid);
+  font-family: 'Noto Serif', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-export:hover {
+  background: rgba(139, 100, 20, 0.15);
+  border-color: rgba(139, 100, 20, 0.5);
+  color: var(--color-gold-bright);
+}
+
+/* Loading dots */
+.merit-loading {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 30px 0;
+}
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold-dim);
+  animation: loadingPulse 1.4s ease-in-out infinite both;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes loadingPulse {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.3;
+  }
+
+  40% {
+    transform: scale(1.0);
+    opacity: 1;
+  }
+}
+
+/* Bảng */
+.merit-table-wrap {
+  border-radius: 6px;
+  overflow-y: auto;
+  /* header 44px + 5 dòng × 44px = 264px */
+  max-height: 264px;
+  border: 1px solid rgba(139, 100, 20, 0.15);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.06),
+    inset 0 0 0 0 transparent;
+}
+
+.merit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Noto Serif', serif;
+}
+
+.merit-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: rgba(245, 240, 230, 0.97);
+  color: var(--color-text-sub);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 44px; /* Cố định chiều cao header */
+  text-align: left;
+  border-bottom: 1px solid rgba(139, 100, 20, 0.15);
+}
+
+.merit-table tbody tr {
+  background: #fff;
+  border-bottom: 1px solid rgba(139, 100, 20, 0.07);
+  transition: background 0.2s ease;
+}
+
+.merit-table tbody tr:hover {
+  background: rgba(139, 100, 20, 0.04);
+}
+
+/* Top 1 */
+.merit-table tbody tr.rank-1 {
+  background: rgba(245, 200, 66, 0.1);
+}
+
+.merit-table tbody tr.rank-1 .col-rank {
+  color: #b8860b;
+  font-size: 1.1rem;
+}
+
+/* Top 2 */
+.merit-table tbody tr.rank-2 {
+  background: rgba(192, 192, 192, 0.08);
+}
+
+.merit-table tbody tr.rank-2 .col-rank {
+  color: #888;
+}
+
+/* Top 3 */
+.merit-table tbody tr.rank-3 {
+  background: rgba(180, 120, 40, 0.07);
+}
+
+.merit-table tbody tr.rank-3 .col-rank {
+  color: #a0622a;
+}
+
+/* Hàng của người dùng hiện tại */
+.merit-table tbody tr.current-user {
+  outline: 1.5px solid rgba(139, 26, 26, 0.25);
+  outline-offset: -1px;
+}
+
+.merit-table td {
+  padding: 0 14px;
+  height: 44px; /* Cố định chiều cao mỗi dòng */
+  font-size: 0.88rem;
+  color: #3d2b0f;
+  vertical-align: middle;
+}
+
+.col-rank {
+  width: 44px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+}
+
+.col-name {
+  font-weight: 600;
+}
+
+.col-merit {
+  width: 100px;
+  text-align: right;
+  color: var(--color-gold-bright);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.col-time {
+  width: 140px;
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  font-style: italic;
+}
+
+/* Huy hiệu top 3 */
+.rank-badge {
+  font-size: 1.1rem;
+}
+
+/* Công đức số */
+.merit-num::after {
+  content: ' nén';
+  font-size: 0.68rem;
+  color: var(--color-text-dim);
+  font-weight: 400;
+}
+
+/* Thông báo trống */
+.merit-empty {
+  text-align: center;
+  color: var(--color-text-dim);
+  font-style: italic;
+  font-size: 0.85rem;
+  padding: 30px 0;
+}
+
+/* Row mới được highlight khi thêm */
+@keyframes rowHighlight {
+  0% {
+    background: rgba(245, 200, 66, 0.25);
+  }
+
+  100% {
+    background: transparent;
+  }
+}
+
+.merit-table tbody tr.new-entry {
+  animation: rowHighlight 2s ease-out forwards;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 600px) {
+  .page-wrapper {
+    padding: 14px 10px 30px;
+  }
+
+  .altar-container {
+    border-radius: 3px;
+  }
+
+  #incense {
+    width: var(--incense-width-mobile);
+  }
+
+  .smoke-layer {
+    width: var(--smoke-width-mobile);
+  }
+
+  .btn-incense {
+    padding: 12px 32px;
+  }
+
+  .col-time {
+    display: none;
+  }
+
+  .merit-table td {
+    padding: 9px 10px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .page-title {
+    font-size: 1.1rem;
+  }
+
+  .btn-incense {
+    padding: 11px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tỉ lệ chữ gọn hơn cho màn hình laptop. */
+@media (min-width: 601px) and (max-height: 900px) {
+  .ceremony-eyebrow {
+    font-size: 1.05rem;
+    letter-spacing: 0.12em;
+  }
+
+  .ceremony-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .name-label {
+    font-size: 0.68rem;
+  }
+
+  .name-input,
+  .btn-incense {
+    min-height: 46px;
+    font-size: 0.9rem;
+  }
+
+  .name-input {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+
+  .btn-incense {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .btn-note {
+    font-size: 0.66rem;
+  }
+}
