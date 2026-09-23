@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/banthovectormo.svg" as="image" />
   <link rel="preload" href="assets/Bohuongvector.svg" as="image" />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=fortune-shake-3" />
 
   <!-- Vercel Analytics (tự động hoạt động khi deploy lên Vercel) -->
   <script defer src="/_vercel/insights/script.js"></script>
@@ -31,6 +31,11 @@
     <div class="logo-wrap no-select">
       <img src="assets/Logoulis-transparent.png" alt="Logo ULIS" class="logo-img" draggable="false" />
     </div>
+    <nav class="view-switch" aria-label="Chọn không gian">
+      <button type="button" class="view-switch-button is-active" id="show-incense" aria-pressed="true" aria-controls="incense-view">Thắp hương</button>
+      <button type="button" class="view-switch-button" id="show-fortune" aria-pressed="false" aria-controls="fortune-view">Gieo quẻ đầu xuân</button>
+    </nav>
+    <section id="incense-view" class="incense-view" aria-label="Không gian dâng hương">
     <header class="ceremony-heading">
       <p class="ceremony-eyebrow">Kh&ocirc;ng gian d&acirc;ng h&#432;&#417;ng</p>
       <p class="ceremony-subtitle">Th&agrave;nh k&iacute;nh t&#432;&#7903;ng nh&#7899; v&agrave; tri &acirc;n</p>
@@ -80,6 +85,37 @@
       <!-- <span class="btn-note" id="btn-note">Nhập tên để dâng hương</span> -->
     </div>
 
+    </section>
+    <section id="fortune-view" class="fortune-view" aria-labelledby="fortune-heading" hidden>
+      <header class="fortune-heading">
+        <p class="fortune-eyebrow">Tết Việt · Lộc đầu năm</p>
+        <h1 id="fortune-heading">Gieo quẻ đầu xuân</h1>
+        <p>Một quẻ may mắn, một lời chúc an lành.</p>
+      </header>
+      <div class="fortune-stage" id="fortune-stage">
+        <span class="fortune-blossom blossom-left" aria-hidden="true">✿</span>
+        <span class="fortune-blossom blossom-right" aria-hidden="true">✿</span>
+        <div class="fortune-halo" aria-hidden="true"></div>
+        <div class="fortune-kit" id="fortune-kit" aria-hidden="true">
+          <div class="fortune-rim-back"></div>
+          <div class="fortune-sticks" id="fortune-sticks"></div>
+          <img class="fortune-cylinder" src="assets/fortune-cylinder.svg" alt="" draggable="false" />
+        </div>
+        <article class="fortune-result" id="fortune-result" aria-label="Quẻ của bạn" hidden>
+          <span class="fortune-result-kicker">Lộc xuân gửi bạn</span>
+          <span class="fortune-result-number" id="fortune-number"></span>
+          <h2 id="fortune-topic"></h2>
+          <span class="fortune-result-divider" aria-hidden="true">✦</span>
+          <p id="fortune-message"></p>
+          <span class="fortune-result-seal" aria-hidden="true">LỘC</span>
+        </article>
+      </div>
+      <p class="fortune-status" id="fortune-status" role="status" aria-live="polite">Nghĩ về điều bạn mong ước, rồi gieo một quẻ nhé.</p>
+      <button type="button" class="btn-incense fortune-draw" id="btn-fortune">Gieo quẻ</button>
+      <label class="fortune-motion"><input type="checkbox" id="fortune-motion" checked /> Hiệu ứng lắc hộp quẻ</label>
+      <p class="fortune-topics">Gia đình · Sự nghiệp · Tình duyên · Sức khoẻ · Học tập</p>
+      <p class="fortune-footnote">Quẻ xuân mang lời chúc vui và niềm hy vọng.</p>
+    </section>
     </main>
 
     <!-- Footer -->
@@ -127,6 +163,7 @@
 
   <!-- Script chính -->
   <script src="script.js"></script>
+  <script src="fortune.js?v=fortune-shake-3"></script>
 
 </body>
 

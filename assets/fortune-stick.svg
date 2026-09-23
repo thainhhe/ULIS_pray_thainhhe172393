@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="260" viewBox="0 0 22 260">
+  <defs><linearGradient id="bamboo"><stop stop-color="#b27a32"/><stop offset=".35" stop-color="#f8dda1"/><stop offset=".7" stop-color="#e9bc72"/><stop offset="1" stop-color="#a66b2b"/></linearGradient></defs>
+  <rect x="2" y="1" width="18" height="258" rx="8" fill="url(#bamboo)" stroke="#9e6628"/>
+  <path d="M2 47V10a9 9 0 0 1 18 0v37Z" fill="#b33228"/>
+  <path d="M6 12v28" stroke="#e97c53" stroke-width="2" stroke-linecap="round"/>
+  <path d="M7 57v185M15 74v156" stroke="#9f702f" opacity=".22"/>
+  <path d="M7 65h8M7 71h8M7 77h8" stroke="#952c23" stroke-width="2"/>
+</svg>

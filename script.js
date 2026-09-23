@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Lấy phần tử DOM ---
   const btn = document.getElementById('btn-incense');
-  const btnNote = document.getElementById('btn-note');
+  const btnNote = document.getElementById('btn-note') || document.createElement('span');
   const nameInput = document.getElementById('user-name');
   const altarContainer = document.getElementById('altar-container');
   const incenseEl = document.getElementById('incense');
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `bottom    ${CONFIG.insertDuration}ms cubic-bezier(0.4, 0, 0.2, 1)`,
       ].join(', ');
       incenseEl.style.transform = 'rotate(0deg)';
-      incenseEl.style.bottom = `${finalBottom}px`;
+      incenseEl.style.bottom = `${finalBottom_pct}%`;
     }, CONFIG.riseDuration + 50);
 
     // BƯỚC 4: Hoàn thành → ghi công đức
@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ----------------------------------------------------------
      XUẤT FILE .TXT
   ---------------------------------------------------------- */
-  btnExport.addEventListener('click', async () => {
+  btnExport?.addEventListener('click', async () => {
     btnExport.textContent = '⏳ Đang tải...';
     btnExport.disabled = true;
 

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="260" viewBox="0 0 240 260">
+  <defs>
+    <linearGradient id="lacquer"><stop stop-color="#641515"/><stop offset=".25" stop-color="#b6322a"/><stop offset=".48" stop-color="#d54d39"/><stop offset=".7" stop-color="#a52c25"/><stop offset="1" stop-color="#581311"/></linearGradient>
+    <linearGradient id="gold"><stop stop-color="#90601e"/><stop offset=".35" stop-color="#f8da8c"/><stop offset=".65" stop-color="#dfb459"/><stop offset="1" stop-color="#8f5e20"/></linearGradient>
+    <pattern id="grain" width="17" height="200" patternUnits="userSpaceOnUse"><path d="M3 0v200M14 0v200" stroke="#54130c" opacity=".1"/></pattern>
+  </defs>
+  <path d="M20 27Q120 55 220 27L206 227Q120 265 34 227Z" fill="url(#lacquer)" stroke="#6b2518" stroke-width="2"/>
+  <path d="M20 27Q120 55 220 27L206 227Q120 265 34 227Z" fill="url(#grain)"/>
+  <path d="M20 27Q120 56 220 27L219 41Q120 70 21 41Z" fill="url(#gold)"/>
+  <path d="M33 213Q120 246 207 213L206 227Q120 264 34 227Z" fill="url(#gold)"/>
+  <path d="M29 61Q120 87 211 61M36 200Q120 230 204 200" fill="none" stroke="#e7bc67" stroke-width="2"/>
+  <path d="M120 83L166 130L120 181L74 130Z" fill="#811c1d" stroke="url(#gold)" stroke-width="3"/>
+  <path d="M120 91L158 130L120 172L82 130Z" fill="none" stroke="#dcaf5a" opacity=".65"/>
+  <text x="120" y="140" text-anchor="middle" font-family="serif" font-size="25" font-weight="bold" fill="#f9df9b">LỘC</text>
+  <g fill="none" stroke="#ebc578" stroke-width="1.8" opacity=".8"><path d="M50 104q-18 0-11 13q5 6 13 0q-3-12 7-10q13 6-2 18M186 104q18 0 11 13q-5 6-13 0q3-12-7-10q-13 6 2 18M53 164q-18 0-11 13q5 6 13 0M186 164q18 0 11 13q-5 6-13 0"/></g>
+</svg>
