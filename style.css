@@ -274,7 +274,7 @@ body::before {
 
 /* Tự động thu nhỏ bàn thờ để vừa 1 màn hình nếu màn hình đủ cao, 
    nếu zoom quá to (màn hình thấp) thì sẽ trở về cuộn bình thường để không bị vỡ layout */
-@media (min-height: 650px) {
+@media (min-height: 650px) and (min-width: 601px) {
   .altar-container {
     /* Chừa chỗ cho logo, tiêu đề, ô nhập và nút trong cùng viewport. */
     max-width: min(var(--altar-max-width), calc((100svh - 430px) * 0.75));
@@ -567,6 +567,10 @@ body::before {
   }
 
   .altar-container {
+    /* Dựa theo chiều rộng để thanh địa chỉ mobile co/giãn khi cuộn
+       không làm bàn thờ đổi kích thước. */
+    width: 72vw;
+    max-width: 300px;
     margin-top: -38px;
     margin-bottom: 2px;
   }

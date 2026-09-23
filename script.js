@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- State ---
   let isAnimating = false;
-  let isDone = false;
+  let hasOffered = false;
   let currentName = '';
 
   /* ----------------------------------------------------------
@@ -220,10 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
   nameInput.addEventListener('input', () => {
     const val = nameInput.value.trim();
     const valid = val.length > 0;
-    btn.disabled = !valid || isDone;
+    btn.disabled = !valid || isAnimating;
 
-    if (valid && !isDone) {
-      btnNote.textContent = 'Nhấn để dâng hương';
+    if (valid && !isAnimating) {
+      btnNote.textContent = hasOffered
+        ? 'Tiếp tục dâng thêm một nén hương'
+        : 'Nhấn để dâng hương';
     } else if (!valid) {
       btnNote.textContent = 'Nhập tên để dâng hương';
     }
@@ -238,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
      SỰ KIỆN NHẤN NÚT THẮP HƯƠNG
   ---------------------------------------------------------- */
   btn.addEventListener('click', () => {
-    if (isAnimating || isDone) return;
+    if (isAnimating) return;
 
     currentName = nameInput.value.trim();
     if (!currentName) return;
@@ -315,14 +317,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // BƯỚC 4: Hoàn thành → ghi công đức
     const totalTime = CONFIG.riseDuration + CONFIG.insertDuration + CONFIG.btnChangeDelay;
-    setTimeout(() => {
-      btn.textContent = '🕯️ Đã thắp hương';
-      btn.title = 'Hương đã được thắp. Xin chư vị phù hộ.';
-      isAnimating = false;
-      isDone = true;
+    setTimeout(async () => {
+      btn.textContent = 'Đang ghi công đức...';
 
-      // Ghi công đức lên Google Sheets
-      saveMeritAndRefresh(currentName);
+      // Chỉ mở lượt tiếp theo sau khi API đã xử lý xong.
+      const saved = await saveMeritAndRefresh(currentName);
+
+      isAnimating = false;
+      nameInput.disabled = false;
+      btn.disabled = nameInput.value.trim().length === 0;
+
+      if (saved) {
+        hasOffered = true;
+        btn.textContent = 'Thắp thêm 1 nén';
+        btn.title = 'Tiếp tục dâng thêm một nén hương.';
+        btnNote.textContent = 'Mỗi lần thành tâm là thêm một nén hương';
+      } else {
+        btn.textContent = 'Thử lại';
+        btn.title = 'Chưa ghi được công đức. Vui lòng thử lại.';
+        btnNote.textContent = 'Chưa thể ghi công đức, vui lòng thử lại';
+      }
     }, totalTime);
   }
 
@@ -330,26 +344,22 @@ document.addEventListener('DOMContentLoaded', () => {
      GHI CÔNG ĐỨC + HIỆU ỨNG + CẬP NHẬT BẢNG
   ---------------------------------------------------------- */
   async function saveMeritAndRefresh(name) {
-    // Hiệu ứng +1 Công Đức nổi lên
-    showMeritFloat();
-
     if (!CONFIG.apiUrl || CONFIG.apiUrl.startsWith('PASTE_')) {
       console.warn('API URL chưa được cấu hình. Bỏ qua ghi dữ liệu.');
-      return;
+      return false;
     }
 
     try {
       const newData = await MeritAPI.addMerit(name);
       renderLeaderboard(newData, name);
-
-      // Scroll mượt xuống bảng xếp hạng
-      document.getElementById('merit-section')
-        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showMeritFloat();
+      return true;
 
     } catch (err) {
       console.error('Lỗi ghi công đức:', err);
       // Thử load lại bảng
       loadLeaderboard(name);
+      return false;
     }
   }
 
@@ -440,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
      RESIZE: Giữ đúng vị trí hương khi thay đổi kích thước cửa sổ
   ---------------------------------------------------------- */
   window.addEventListener('resize', () => {
-    if (!isDone) return;
+    if (!hasOffered) return;
 
     const incenseW_pct = CONFIG.incenseWidthPercent;
     const finalLeft_pct = CONFIG.bowlXPercent - (incenseW_pct / 2);
